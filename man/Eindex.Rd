@@ -29,6 +29,7 @@ The result is a list of class \sQuote{RInSp} composed of:
   \item{CwS}{Vector of the individuals weighted clustering coefficients.}
   \item{Cw}{Value of the measure of modularity.}
   \item{index}{The type of clustering coefficient used.}
+  \item{Ki}{A vector with the degree of the nodes of the network.}
 }
 
 \details{
@@ -55,6 +56,8 @@ Samaraki et al. (2007) and Onnela et al. (2005) proposed a version of a clusteri
 where \eqn{k_i} is the number of edges between individual i and its neighbours; \eqn{w_{ij}} is the weight of the edge between individual i and j obtained by dividing the actual weight by the maximum of all weights. The summation, therefore, quantifies the weights of all edges between individual i and its neighbours that are also neighbours to each other.
 
 The default value of the procedure has been set for analogy with the Dieta1.c code provided by Araujo et al. (2008). The original source code Dieta1.c is available from the \dQuote{Ecological Archives} of the Ecological Society of America (\url{http://esapubs.org/archive/}): identifier E089-115-A1; \url{http://esapubs.org/archive/ecol/E089/115/}.
+
+Version 1.1 of the package fixes the case of highly specialised individuals in the calculation of \eqn{C_{ws}}.
 }
 
 \references{

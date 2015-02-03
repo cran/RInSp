@@ -1,10 +1,11 @@
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
-# include <time.h>
 # include <R.h>
 # include <Rinternals.h>
 # include <Rdefines.h>
+# include <Rmath.h>
+# define PRECISION 0.000000001    //When value are smaller than this are set to zero (check MatrixW)
 
 // The procedure performs a Monte Carlo resampling under a null hypothesis to calculate
 // the E measure of interindividual variation and the value of the \eqn{C_{ws}} measure
@@ -12,8 +13,8 @@
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1
-// Date: 10/11/2012
+// Version 1.2
+// Date: 05/10/2014
 
 
 SEXP Emc(SEXP Proportions, SEXP IndType, SEXP PopDietType, SEXP DietToTInd, SEXP nreplicates)
@@ -21,9 +22,8 @@ SEXP Emc(SEXP Proportions, SEXP IndType, SEXP PopDietType, SEXP DietToTInd, SEXP
 
 time_t t;
 int NInds, NPrey, i, j, k, x, R, Ki, TypeInd, nreps;
-float item;
 double Wmedio, Wmax, CWt, Wpot3, F, Si, CwS, E;
-double tmp, tmp2, cumulativep, lowerbound;
+double item, tmp, tmp2, cumulativep, lowerbound;
 double *totaldieti, *populationdiet, *DataTmp, *RisBoot;
 double **MatrixP, **MatrixW;
 SEXP Rris, Rdim;
@@ -60,25 +60,26 @@ for (i=0; i < NInds; i++)
     { MatrixP[i] = calloc(NPrey, sizeof(double));
       MatrixW[i] = calloc(NInds, sizeof(double)); }
 
-// Initialize some matrices
+// Initialize the proportion matrix MatrixP
 for (j=0; j<NPrey; j++) {
   for (i=0; i<NInds; i++){
     MatrixP[i][j] = DataTmp[i + NInds*j];
 }}
 
-
-srand((unsigned) time(&t));
+// read in (or create) .Random.seed for R random generation fuctions
+GetRNGstate();
 
 // Calculation and Monte Carlo resampling
 for (R = 0; R < (nreps +1); R++)
     {
+// Recalculate proportions for resampled data
      if (R > 0)
 	 {
 	  for (i=0; i<NInds; i++) { for (j=0; j<NPrey; j++) {
 				 MatrixP[i][j] = 0; }}
       for (i=0; i<NInds; i++)
           {for (x=0; x< totaldieti[i]; x++)
-              {item = (double)rand()/(double)RAND_MAX;
+              {item = (double)unif_rand();    // Using R random function from Rmath.h
                cumulativep = 0;
                for (j=0; j<NPrey; j++)
                    {lowerbound = cumulativep;
@@ -103,7 +104,7 @@ for (i=0; i< NInds; i++)
 		 if (k != i)
 			 {
 			  tmp = 0;
-              tmp2 = 0;
+			  tmp2 = 0;
 			 for (j=0; j<NPrey; j++)
 				 {
 				  if (MatrixP[i][j] > MatrixP[k][j])
@@ -113,13 +114,15 @@ for (i=0; i< NInds; i++)
 				 }
 			 if (TypeInd == 1) 
                             { tmp2 = (double)1.0 - (double)0.5*tmp;
-                              MatrixW[i][k] = pow(tmp2, (double)1.0/ (double)3.0);
+                              if (tmp2 < PRECISION) tmp2 = 0.0;       // CHANGE
+                              MatrixW[i][k] = tmp2;
                              } else { 
                               tmp2 = (double)1.0 - (double)0.5*tmp;
+                              if (tmp2 < PRECISION) tmp2 = 0.0;
                               MatrixW[i][k] = tmp2; }
 			 Wmedio = Wmedio + tmp2;
 			 if (tmp2 > Wmax) Wmax = tmp2;
-			 } //else
+			 } // End if (k != i)
 	     } 
     }
     
@@ -139,23 +142,25 @@ if (TypeInd == 1)
 	   for (j=0; j<NInds; j++) {if (MatrixW[i][j] > 0) Ki = Ki + 1;}
 	   for (j=0; j<NInds; j++)
 		 {for (k=0; k<NInds; k++)
-			{if ((i != j) && (i != k) && (j != k))
-			   {if ((MatrixW[i][j] > 0) && (MatrixW[i][k] > 0) && (MatrixW[j][k] > 0))
-				  { Wpot3 = (MatrixW[i][j]*MatrixW[j][k]*MatrixW[k][i]) / Wmax;
-					  F = F + Wpot3;
+     // These two lines are out as now MatrixW as positive elements and non existing cliques have Wpot3 = 0 as al least one
+     // side of the triangle is zero. No real effect on the execution performance.
+//			{if ((i != j) && (i != k) && (j != k))
+//			   {if ((MatrixW[i][j] > 0) && (MatrixW[i][k] > 0) && (MatrixW[j][k] > 0))
+				  { Wpot3 = (double)((double)pow((double)(MatrixW[i][j]*MatrixW[j][k]*MatrixW[k][i]), (double)(double)1.0/(double)3.0)) / (double)Wmax; 
+			            F = F + Wpot3;
 				  }
-			   }
-			}
+//			   }
+//			}
 		 }
-		 tmp = (Ki - 1.0);
-		 if (tmp == 0) tmp = 1.0;
-         CWt = CWt + F /(Ki*tmp);
+     // This is for taking care of isolated nodes or single link nodes.
+     if (Ki <= 1.0) { tmp = 1.0;} else {tmp = Ki * (Ki - 1.0);}
+     CWt = CWt + (F / tmp);
 	  }
    } else
    { for (i=0; i<NInds; i++)
-	  {  Ki=0;
-		 Si=0;
-		 F = 0;
+	  {  Ki=0.0;
+		 Si=0.0;
+		 F = 0.0;
 		 for (j=0; j<NInds; j++) { if (MatrixW[i][j] > 0) 
                                       { Ki = Ki + 1;
                                         Si = Si + MatrixW[i][j]; }
@@ -164,14 +169,14 @@ if (TypeInd == 1)
 		 {for (k=0; k<NInds; k++)
 			{if ((i != j) && (i != k) && (j != k))
 			   {if ((MatrixW[i][j] > 0) && (MatrixW[i][k] > 0) && (MatrixW[j][k] > 0))
-				  {Wpot3 = (MatrixW[i][j] + MatrixW[i][k])/((double)2);
+				  {Wpot3 = (MatrixW[i][j] + MatrixW[i][k])/((double)2.0);
 				   F = (F + Wpot3);
 				  }
 			   }
 			}
 		 }
 		 tmp = (Ki - 1.0);
-		 if (tmp == 0) tmp = 1.0;
+		 if (tmp <= 0) tmp = 1.0;
 		 tmp2=(1.0/(Si*tmp));
          CWt = CWt + (tmp2 * F);
       }
@@ -186,6 +191,10 @@ if ((CWt + Wmedio) != 0) {CwS = (CWt - Wmedio)/(CWt + Wmedio);} else {CwS= 0;}
   RisBoot[R + (nreps + 1) * 2] = CWt;
   RisBoot[R + (nreps + 1) * 3] = CwS;
 } // end R cycle
+
+// write .Random.seed out after use
+PutRNGstate();
+
 UNPROTECT(4);
 
 return Rris;}

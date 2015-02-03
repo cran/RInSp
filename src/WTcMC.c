@@ -1,12 +1,10 @@
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
-# include <time.h>
 # include <R.h>
 # include <Rinternals.h>
 # include <Rdefines.h>
 # include <Rmath.h>
-
 // the E measure of interindividual variation and the value of The program calculates
 // the Total Niche Width (TNW), and breaks TNW down into its Between Individual Component (BIC)
 // and Within Individual Component (WIC). It reports these three statistics and the
@@ -19,8 +17,8 @@
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1
-// Date: 10/11/2012
+// Version 1.2
+// Date: 05/10/2014
 
 SEXP WTcMC(SEXP comcalc, SEXP nreplicates, SEXP weight)
 {
@@ -163,7 +161,8 @@ risult[R + (nreps + 1) * 3] = wic/tnw;
 // NOW we calculate the WT statistics for real data
 // Monte Carlo Resampling
 
-srand((unsigned) time(&t));
+// read in (or create) .Random.seed for R random generation fuctions
+GetRNGstate();
 
 for (R = 1; R< (nreps + 1); R++)
     {
@@ -181,8 +180,8 @@ for (R = 1; R< (nreps + 1); R++)
                 temp = 0;
                 while (temp == 0)
                     {
-                    newi = (double)NRows * ((double)rand()/(double)RAND_MAX);
-                    newj = (double)NCols * ((double)rand()/(double)RAND_MAX);
+                    newi = (double)NRows * (double)unif_rand();    // Using R random function from Rmath.h
+                    newj = (double)NCols * (double)unif_rand();    // Using R random function from Rmath.h
                     temp = dati[(int)newi + NRows*(int)newj];
                     }
                 bsdata[i][j] = temp;
@@ -294,5 +293,9 @@ free(varxj);
 free(meanxi);
 free(numxi);
 free(numInt);
+
+// write .Random.seed out after use
+PutRNGstate();
+
 return Rris;
 }

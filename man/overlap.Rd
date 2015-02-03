@@ -33,23 +33,27 @@ Bolnick, D.I., L.H. Yang, J.A. Fordyce, J.M. Davis, and Svanback, R. 2002. Measu
 \examples{
  data(Stickleback)
 # Select a single spatial sampling site (site D)
-GutContents = import.RInSp(Stickleback, row.names = 1,info.cols = c(2:13))
-similarity = overlap(GutContents)
-diet.similarity = as.dist(similarity$overlapmatrix)
+GutContents_SiteD = import.RInSp(Stickleback, row.names = 1,
+info.cols = c(2:13), subset.rows = c("Site", "D"))
+similarity = overlap(GutContents_SiteD)
 
+\dontrun{
 # Generate a plot similar to Bolnick and Paull 2009, testing whether
 # morphological differences between individuals are positively related
 # to diet differences (or conversely are negatively related to diet similarity)
+GutContents = import.RInSp(Stickleback, row.names = 1,info.cols = c(2:13))
+similarity = overlap(GutContents)
+diet.similarity = as.dist(similarity$overlapmatrix)
 size.dissimilarity = dist(GutContents$info[,3])
 plot(diet.similarity ~ size.dissimilarity, xlab = "Size dissimilarity",
 ylab = "Diet similarity", pch = 16, cex = 0.4)
 model = lm(diet.similarity ~ size.dissimilarity)
 abline(model, lwd = 3, col = "red")
+
 # The ade4 package is needed to complete the analysis
-# copy and paste the following commands without the # symbol
-# library(ade4)
-# mantel.rtest(diet.similarity, size.dissimilarity)
-rm(list=ls(all=TRUE))
+library(ade4)
+mantel.rtest(diet.similarity, size.dissimilarity)
+}
 }
 \keyword{function}
 \keyword{utilities}

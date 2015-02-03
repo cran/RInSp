@@ -1,20 +1,18 @@
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
-# include <time.h>
 # include <R.h>
 # include <Rinternals.h>
 # include <Rdefines.h>
 # include <Rmath.h>
-
 // Calculate the proportional similarity index Psi
 // Bolnick et al. (2003) describe another measure of individual specialization, based on
 // he average pairwise overlap of the niche distribution of individuals and the population.
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1
-// Date: 10/11/2012
+// Version 1.2
+// Date: 05/10/2014
 
 SEXP PSicalc(SEXP comcalc, SEXP popdiet, SEXP nreplicates)
 { time_t t;
@@ -74,7 +72,8 @@ for (j=0; j < NCols; j++)
 VARps = calloc(NRows, sizeof(double));
 PSresults = calloc(NRows, sizeof(double));
 
-srand((unsigned) time(&t));
+// read in (or create) .Random.seed for R random generation fuctions
+GetRNGstate();
 
 // Attention to the right address for the elements
 for (j=0; j<NCols; j++)
@@ -103,7 +102,7 @@ for (Rep = 0; Rep < (nreps + 1); Rep++)
       for (i=0; i<NRows; i++) { for (j=0; j<NCols; j++) { bsdata[i][j] = 0; } }
       for (i=0; i<NRows; i++)
         { for (k=0; k< totaldieti[i]; k++)
-            { item = (float)rand()/(float)RAND_MAX;
+            { item = (double)unif_rand();    // Using R random function from Rmath.h
               cumulativep = 0;
               for (j=0; j<NCols; j++)
                 { lowerbound = cumulativep;
@@ -199,6 +198,9 @@ free(PSresults);
 free(VARps);
 free(plessthanq);
 free(qlessthanp);
+
+// write .Random.seed out after use
+PutRNGstate();
 
 return Rris;
 }

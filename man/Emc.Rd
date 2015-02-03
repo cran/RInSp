@@ -46,6 +46,8 @@ An adjusted value of E is calculated as:
 \deqn{E_{adj} = \frac{E_{obs} - E_{null}}{1 - E_{null}}}
 
 This rescales the value of E (i.e., the observed value \eqn{E_{obs}}) to range from a minimum of 0 when the observed value is equal to the mean Null value (i.e., \eqn{E_{null}}, up to a maximum of 1 when individual specialization is strongest). This allows one to compare datasets with different mean Null values.
+
+Version 1.1 of the package fixes the case of highly specialised individuals in the calculation of \eqn{C_{ws}} by removing a bug in the C code taken from Dieta1.c affecting how the weight matrix and the number of links where calculated when highly specilised individuals are present.
 }
 
 \references{

@@ -10,19 +10,29 @@ R Individual Specialization
 
 To cite package check the command \code{CITATION} or use:
 
-Zaccarelli, N., Mancinelli, G. and Bolnick, D.I. (2013) RInSp: an R package for the analysis of individual specialisation in resource use. Methods in Ecology and Evolution, doi: 10.1111/2041-210X.12079 
+Zaccarelli, N., Mancinelli, G. and Bolnick, D.I. (2013) RInSp: an R package for the analysis of individual specialisation in resource use. Methods in Ecology and Evolution, 4(11): 1018-1023, doi: 10.1111/2041-210X.12079 
 
 This package can be used on Mac, Windows and UNIX platforms, and on both i386 and x64 architectures. It is based on IndSpec1.0 developed by Prof. D. Bolnick (Bolnick et al. 2002), and on Dieta1 developed by Dr. M.A. Araujo (Araujo et al. 2008).
 
 The original source code of IndSpec1.0 is available from the \dQuote{Ecological Archives} of the Ecological Society of America (\url{http://esapubs.org/archive/}): identifier E083-056-S1; \url{http://esapubs.org/archive/ecol/E083/056/}.
-The original source code Dieta1 is available from the \dQuote{Ecological Archives} of the Ecological Society of America (\url{http://esapubs.org/archive/}): identifier E089-115-A1; \url{http://esapubs.org/archive/ecol/E089/115/}.}
+The original source code Dieta1 is available from the \dQuote{Ecological Archives} of the Ecological Society of America (\url{http://esapubs.org/archive/}): identifier E089-115-A1; \url{http://esapubs.org/archive/ecol/E089/115/}.
+
+Version 1.1 of the package fixes three issues:
+\enumerate{
+\item in \code{\link{Eindex}} the case of highly specialised individuals is now handled correctly;
+\item in \code{\link{like.Wi}} the probability for each value of Petraitis' W is properly handled;
+\item in \code{\link{Emc}} the C code taken from Dieta1.c has been fixed for an error in the calculation of the weight matrix when highly specilised individuals are present.}
+
+The Authors thank for the first two issues Miss Georgia Karoline Kosmala (\email{geh_karol@hotmail.com}) and  Miss Ambika Kamath (\email{geh_karol@hotmail.com}), and for starting the discussion leading to the identification of the bug in Dieta1.c Dr. Marcio S. Araujo (\email{msaraujo@rc.unesp.br}). 
+
+}
 
 \details{
 \tabular{ll}{
 Package: \tab RInSp\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2013-07-07\cr
+Version: \tab 1.1\cr
+Date: \tab 2014-09-29\cr
 License: \tab GPL (>= 2)\cr
 }
 }

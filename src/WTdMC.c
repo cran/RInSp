@@ -1,12 +1,10 @@
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
-# include <time.h>
 # include <R.h>
 # include <Rinternals.h>
 # include <Rdefines.h>
 # include <Rmath.h>
-
 // The procedure performs a Monte Carlo resampling under a null hypothesis to calculate
 // The program calculates the Total Niche Width (TNW), and breaks TNW down into its
 // Between Individual Component (BIC) and Within Individual Component (WIC). It reports
@@ -23,8 +21,8 @@
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1
-// Date: 10/11/2012
+// Version 1.2
+// Date: 05/10/2014
 
 SEXP WTdMC(SEXP comcalc, SEXP popdiet, SEXP nreplicates)
 { time_t t;
@@ -69,7 +67,8 @@ populationdiet = calloc(NCols, sizeof(double));
     {populationdiet[j] = 0;
      bspopulationdiet[j] = 0;}
 
-srand((unsigned) time(&t));
+// read in (or create) .Random.seed for R random generation fuctions
+GetRNGstate();
 
 // Attention to the right address for the elements
 for (j=0; j<NCols; j++) {
@@ -97,7 +96,7 @@ if (R > 0) {
                {bsdata[i][j] = 0;}}
      for (i=0; i<NRows; i++)
          {for (x=0; x< totaldieti[i]; x++)
-             {item = (float)rand()/(float)RAND_MAX;
+             {item = (double)unif_rand();    // Using R random function from Rmath.h
               cumulativep = 0;
               for (j=0; j<NCols; j++)
                   {lowerbound = cumulativep;
@@ -176,5 +175,9 @@ free(results);
 free(totaldieti);
 free(bstotaldieti);
 free(populationdiet);
+
+// write .Random.seed out after use
+PutRNGstate();
+
 return Rris;
 }

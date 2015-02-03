@@ -1,19 +1,17 @@
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
-# include <time.h>
 # include <R.h>
 # include <Rinternals.h>
 # include <Rdefines.h>
 # include <Rmath.h>
-
 // The procedure replicates the two strategies of Monte Carlo resampling available
 // in Emc.c, PSicalc.c, WTcMC.c, and WTdMC.c.
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1
-// Date: 10/11/2012
+// Version 1.2
+// Date: 05/10/2014
 
 SEXP MCprocedure(SEXP resources, SEXP MCType, SEXP DietPop, SEXP nreplicates)
 {
@@ -61,7 +59,8 @@ nreps = INTEGER(nreplicates)[0];
 PROTECT(Rris = allocMatrix(REALSXP, (NRows * NCols), nreps));
 risult = REAL(Rris);
 
-srand((unsigned) time(&t));
+// read in (or create) .Random.seed for R random generation fuctions
+GetRNGstate();
 
 // Calculate individual diet or number of items from real data
 for (i=0; i < NRows; i++)
@@ -87,7 +86,7 @@ if (typeMC == 1)
 {
 for (i=0; i<NRows; i++)
      {for (x=0; x< totaldieti[i]; x++)
-         {item = (float)rand()/(float)RAND_MAX;
+         {item =  (double)unif_rand();    // Using R random function from Rmath.h
           cumulativep = 0;
           for (j=0; j<NCols; j++)
              {lowerbound = cumulativep;
@@ -105,8 +104,8 @@ for (i=0; i<NRows; i++)
          temp = 0;
          while (temp == 0)
              {
-              newi = (double)NRows * ((double)rand()/(double)RAND_MAX);
-              newj = (double)NCols * ((double)rand()/(double)RAND_MAX);
+              newi = (double)NRows * (double)unif_rand();    // Using R random function from Rmath.h
+              newj = (double)NCols * (double)unif_rand();    // Using R random function from Rmath.h
               temp = realdata[(int)newi][(int)newj];
               }
           mcdata[i][j] = temp;
@@ -121,6 +120,10 @@ for (i=0; i<NCols; i++)
      }
 
 } // for of sim
+
+// write .Random.seed out after use
+PutRNGstate();
+
 UNPROTECT(2);
 free(totaldieti);
 return Rris;
