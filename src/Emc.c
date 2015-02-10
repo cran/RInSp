@@ -13,14 +13,13 @@
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1.2
-// Date: 05/10/2014
+// Version 1.3
+// Date: 2015-02-03
 
 
 SEXP Emc(SEXP Proportions, SEXP IndType, SEXP PopDietType, SEXP DietToTInd, SEXP nreplicates)
 {
 
-time_t t;
 int NInds, NPrey, i, j, k, x, R, Ki, TypeInd, nreps;
 double Wmedio, Wmax, CWt, Wpot3, F, Si, CwS, E;
 double item, tmp, tmp2, cumulativep, lowerbound;
@@ -79,7 +78,7 @@ for (R = 0; R < (nreps +1); R++)
 				 MatrixP[i][j] = 0; }}
       for (i=0; i<NInds; i++)
           {for (x=0; x< totaldieti[i]; x++)
-              {item = (double)unif_rand();    // Using R random function from Rmath.h
+              {item = unif_rand();    // Using R random function from Rmath.h
                cumulativep = 0;
                for (j=0; j<NPrey; j++)
                    {lowerbound = cumulativep;

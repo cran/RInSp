@@ -10,12 +10,12 @@
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1.2
-// Date: 05/10/2014
+// Version 1.3
+// Date: 2015-02-03
 
 SEXP MCprocedure(SEXP resources, SEXP MCType, SEXP DietPop, SEXP nreplicates)
 {
-    time_t t;
+
 // Declare all variables
 int   NRows, NCols, i, j, sim, nreps, typeMC;
 double cumulativep, lowerbound, item;
@@ -86,7 +86,7 @@ if (typeMC == 1)
 {
 for (i=0; i<NRows; i++)
      {for (x=0; x< totaldieti[i]; x++)
-         {item =  (double)unif_rand();    // Using R random function from Rmath.h
+         {item =  unif_rand();    // Using R random function from Rmath.h
           cumulativep = 0;
           for (j=0; j<NCols; j++)
              {lowerbound = cumulativep;
@@ -104,8 +104,8 @@ for (i=0; i<NRows; i++)
          temp = 0;
          while (temp == 0)
              {
-              newi = (double)NRows * (double)unif_rand();    // Using R random function from Rmath.h
-              newj = (double)NCols * (double)unif_rand();    // Using R random function from Rmath.h
+              newi = (double)NRows * unif_rand();    // Using R random function from Rmath.h
+              newj = (double)NCols * unif_rand();    // Using R random function from Rmath.h
               temp = realdata[(int)newi][(int)newj];
               }
           mcdata[i][j] = temp;

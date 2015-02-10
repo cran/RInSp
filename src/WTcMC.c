@@ -17,18 +17,18 @@
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1.2
-// Date: 05/10/2014
+// Version 1.3
+// Date: 2015-02-03
 
 SEXP WTcMC(SEXP comcalc, SEXP nreplicates, SEXP weight)
 {
-    time_t t;
+
 /* Declare all variables */
-int   NRows, NCols, i, j, R, Nitems, Yitems, nreps, weightOpt;
+int   NRows, NCols, i, j, t, R, Nitems, Yitems, nreps, weightOpt;
 double temp, summation, sumofsquare, wic, bic, meanmeanxi, meanxij, varxij, tnw, meanweight, numTot;
-float newi, newj;
+double newi, newj;
 double *dati, *risult;
-float **bsdata;
+double **bsdata;
 double *varxj, *meanxi, *numxi, *numInt;
 SEXP Rris, Rdim;
 
@@ -180,8 +180,8 @@ for (R = 1; R< (nreps + 1); R++)
                 temp = 0;
                 while (temp == 0)
                     {
-                    newi = (double)NRows * (double)unif_rand();    // Using R random function from Rmath.h
-                    newj = (double)NCols * (double)unif_rand();    // Using R random function from Rmath.h
+                    newi = (double)NRows * unif_rand();    // Using R random function from Rmath.h
+                    newj = (double)NCols * unif_rand();    // Using R random function from Rmath.h
                     temp = dati[(int)newi + NRows*(int)newj];
                     }
                 bsdata[i][j] = temp;
@@ -299,3 +299,4 @@ PutRNGstate();
 
 return Rris;
 }
+

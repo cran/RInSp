@@ -21,15 +21,16 @@
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1.2
-// Date: 05/10/2014
+// Version 1.3
+// Date: 2015-02-03
 
 SEXP WTdMC(SEXP comcalc, SEXP popdiet, SEXP nreplicates)
-{ time_t t;
+{
 // Declare all variables
 int   NRows, NCols, i, j, nreps, popD, zeroes, x, R;
 double popshannonweaver, wpc, indsw, bspoptotal;
-float item, cumulativep, lowerbound, bsresourcejtotal;
+double cumulativep, lowerbound, bsresourcejtotal;
+double item;
 double *dati, *results, *totaldieti, *bstotaldieti, *populationdiet;
 double *bspopulationdiet, *resfin;
 double **bsdata, **bsproportions;
@@ -96,7 +97,7 @@ if (R > 0) {
                {bsdata[i][j] = 0;}}
      for (i=0; i<NRows; i++)
          {for (x=0; x< totaldieti[i]; x++)
-             {item = (double)unif_rand();    // Using R random function from Rmath.h
+             {item = unif_rand();    // Using R random function from Rmath.h
               cumulativep = 0;
               for (j=0; j<NCols; j++)
                   {lowerbound = cumulativep;

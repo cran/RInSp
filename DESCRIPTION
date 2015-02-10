@@ -1,7 +1,7 @@
 Package: RInSp
 Title: R Individual Specialization (RInSp)
-Version: 1.1
-Date: 2015-02-03
+Version: 1.2
+Date: 2015-02-10
 Author: Dr. Nicola Zaccarelli, Dr. Giorgio Mancinelli, and Prof. Dan Bolnick
 Maintainer: Dr. Nicola Zaccarelli <nicola.zaccarelli@gmail.com>
 Description: Functions to calculate several ecological indices of individual and population niche width
@@ -12,5 +12,5 @@ Description: Functions to calculate several ecological indices of individual and
 License: GPL (>= 2)
 NeedsCompilation: yes
 Repository: CRAN
-Packaged: 2015-02-04 12:42:23 UTC; Nicola
-Date/Publication: 2015-02-04 15:51:26
+Packaged: 2015-02-10 10:27:41 UTC; Nicola
+Date/Publication: 2015-02-10 13:01:51

@@ -11,16 +11,16 @@
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1.2
-// Date: 05/10/2014
+// Version 1.3
+// Date: 2015-02-03
 
 SEXP PSicalc(SEXP comcalc, SEXP popdiet, SEXP nreplicates)
-{ time_t t;
+{
 // Declare all variables
 int   NRows, NCols, i, j, nreps, popD, k, l, Rep;
-float IS, bspoptotal;
-float item, cumulativep, lowerbound, bsresourcejtotal;
-float ps, t1, t2, t3, t4;
+double IS, bspoptotal;
+double item, cumulativep, lowerbound, bsresourcejtotal;
+double ps, t1, t2, t3, t4;
 double *dati, *results, *totaldieti, *populationdiet;
 double *bspopulationdiet, *resfin;
 double **bsdata, **bsproportions;
@@ -102,7 +102,7 @@ for (Rep = 0; Rep < (nreps + 1); Rep++)
       for (i=0; i<NRows; i++) { for (j=0; j<NCols; j++) { bsdata[i][j] = 0; } }
       for (i=0; i<NRows; i++)
         { for (k=0; k< totaldieti[i]; k++)
-            { item = (double)unif_rand();    // Using R random function from Rmath.h
+            { item = unif_rand();    // Using R random function from Rmath.h
               cumulativep = 0;
               for (j=0; j<NCols; j++)
                 { lowerbound = cumulativep;
