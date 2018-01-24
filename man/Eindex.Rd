@@ -8,13 +8,14 @@ The procedure calculates the E measure of interindividual variation, its varianc
 }
 
 \usage{
-Eindex(dataset, index = "saramaki", jackknife = FALSE)
+Eindex(dataset, index = "saramaki", jackknife = FALSE, precision = 1e-9)
 }
 
 \arguments{
   \item{dataset}{Object of class RInSp with data of type \dQuote{double}, \dQuote{integer} or \dQuote{proportions}.}
   \item{index}{The type of clustering coefficient to use. Valid values are Saramaki's and Barrat's index: \dQuote{saramaki} or \dQuote{barrat}.}
   \item{jackknife}{Specify if a jackknife estimate of the index variance is required. Default is FALSE.}
+  \item{precision}{a filter to remove from the PS matrix all values which are lower than "precision". In this way some interactions are removed due to their small weight in the PS matrix.}
 }
 
 \value{
@@ -30,6 +31,8 @@ The result is a list of class \sQuote{RInSp} composed of:
   \item{Cw}{Value of the measure of modularity.}
   \item{index}{The type of clustering coefficient used.}
   \item{Ki}{A vector with the degree of the nodes of the network.}
+  \item{Precission}{The value of the selected threshold for precision.}
+  \item{Isolation}{If the value is different from zero there are isolated individuals in the network.}
 }
 
 \details{
@@ -38,7 +41,7 @@ The index E has been proposed by Araujo et al. (2008) as a measure of individual
 
 A jackknife estimation of the variance of E can be derived using the formalism of U-statistics (Aversen, 1969). For a complete description and a formal demonstration of the jackknife estimation of the variance of the E index the reader is refered to Araujo et al. (2008).
 
-A measure of the relative degree of clustering in a network to test for modularity in the niche overlap network is \eqn{C_{ws}}. In a totally random network (i.e., a network consisting of individuals that sample randomly from the population niche), \eqn{C_{ws}} is approximally 0, indicating no modularity. If individuals form discrete groups specialized on distinct sets of resources, \eqn{C_{ws} > 0}, and the network is modular. If \eqn{C_{ws} < 0} the network degree of clustering is actually lower than what would be expected solely on the overall network density of connections, indicating that diet variation takes place at the level of the individual, as opposed to discrete groups. 
+A measure of the relative degree of clustering in a network to test for modularity in the niche overlap network is \eqn{C_{ws}}. In a totally random network (i.e., a network consisting of individuals that sample randomly from the population niche), \eqn{C_{ws}} is approximally 0, indicating no modularity. If individuals form discrete groups specialized on distinct sets of resources, \eqn{C_{ws} > 0}, and the network is modular. If \eqn{C_{ws} < 0} the network degree of clustering is actually lower than what would be expected solely on the overall network density of connections, indicating that diet variation takes place at the level of the individual, as opposed to discrete groups.
 
 The relative degree of clustering \eqn{C_{ws}} is obtained as the mean values over all nodes the niche overlap network of the individual node weighted clustering coefficients (\eqn{C_{w_i}}).
 
@@ -82,11 +85,11 @@ Schoener, T.W. 1968. The \emph{Anolis} lizards of Bimini: resources partitioning
 # Eindex example with data from Bolnick and Paull (2009)
 data(Stickleback)
 # Select a single spatial sampling site (site B)
-GutContents_SiteB = import.RInSp(Stickleback, row.names = 1,
+GutContents_SiteB <- import.RInSp(Stickleback, row.names = 1,
 info.cols = c(2:13), subset.rows = c("Site", "B"))
 # Index calculation with jackknife variance estimate
 # This can take time for big data sets
-Eresult = Eindex(GutContents_SiteB, index = "saramaki", jackknife = TRUE)
+Eresult <- Eindex(GutContents_SiteB, index = "saramaki", jackknife = TRUE)
 rm(list=ls(all=TRUE))
 }
 

@@ -1,7 +1,8 @@
 RInSp2vegan <-
 function(dataset){
   #
-  # The procedure converts an RIS class object into a dataframe to be used as input for the "Vegan" package its nestedness indices.
+  # The procedure converts an RIS class object into a dataframe to be used as input for
+  # the "Vegan" package to calculate nestedness indices.
   #
   # Author: Nicola ZACCARELLI, Giorgio MANCINELLI, Dan BOLNICK
   # E-mail: nicola.zaccarelli@gmail.com,

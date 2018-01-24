@@ -5,11 +5,11 @@
 # include <Rinternals.h>
 # include <Rdefines.h>
 # include <Rmath.h>
-// the E measure of interindividual variation and the value of The program calculates
-// the Total Niche Width (TNW), and breaks TNW down into its Between Individual Component (BIC)
-// and Within Individual Component (WIC). It reports these three statistics and the
-// proportion WIC/TNW, or what we call W/T. Niche widths of the population, within individuals,
-// and among individuals, are calculated following Roughgarden 1974.
+// The program calculates  the Total Niche Width (TNW), and breaks TNW down into
+// its Between Individual Component (BIC) and Within Individual Component (WIC).
+// It reports these three statistics and the proportion WIC/TNW, or what we call
+// W/T. Niche widths of the population, within individuals, and among individuals,
+// are calculated following Roughgarden 1974.
 // A Monte Carlo resampling routine is used to calculate a null distribution for each of these
 // statistics and generate a p-value testing the null hypothesis that all individuals sample
 // equally from the population diet distribution.the \eqn{C_{ws}} measure of modularity
@@ -20,7 +20,7 @@
 // Version 1.3
 // Date: 2015-02-03
 
-SEXP WTcMC(SEXP comcalc, SEXP nreplicates, SEXP weight)
+SEXP CWTcMC(SEXP comcalc, SEXP nreplicates, SEXP weight)
 {
 
 /* Declare all variables */
@@ -69,7 +69,7 @@ for (i=0; i<NRows; i++)
       for (j=0; j<NCols; j++)
          {
 // A different way of addressing the matrix elements in the vector
-         if (dati[i + NRows*j]>0) 
+         if (dati[i + NRows*j]>0)
             {
              summation = summation + dati[i + NRows*j];
              Nitems++;
@@ -202,7 +202,7 @@ for (i=0; i<NRows; i++)
       for (j=0; j<NCols; j++)
          {
 // A different way of addressing the matrix elements in the vector
-         if (bsdata[i][j]>0) 
+         if (bsdata[i][j]>0)
             {
              summation = summation + bsdata[i][j];
              Nitems++;
@@ -287,7 +287,7 @@ if (weightOpt == 1)
   risult[R + (nreps + 1) * 3] = wic / tnw;
 
 } // END Monte Carlo resampling
-UNPROTECT(2);
+
 free(bsdata);
 free(varxj);
 free(meanxi);
@@ -296,6 +296,8 @@ free(numInt);
 
 // write .Random.seed out after use
 PutRNGstate();
+
+UNPROTECT(2);
 
 return Rris;
 }

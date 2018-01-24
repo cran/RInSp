@@ -61,14 +61,14 @@ subset.column = c(13:28, 45))
 # Lump prey types into functional groups then import data
 # define new columns representing lumped prey categories
 attach(Stickleback)
-Copepods = Calanoid + Cyclopoid + Harpacticoid
-Diptera = Diptera.Pupae + Chironomid.larvae + Ceratopogonid.larvae + Tipulid.larvae +
+Copepods <- Calanoid + Cyclopoid + Harpacticoid
+Diptera <- Diptera.Pupae + Chironomid.larvae + Ceratopogonid.larvae + Tipulid.larvae +
 Tipulidae.Adult + Diptera.Adult + Diptera.Larvae + Ceratopogonid.Adult
-InsectLarvae = Ephemeroptera + Trichoptera.larvae + Ephemeroptera.pupae +
+InsectLarvae <- Ephemeroptera + Trichoptera.larvae + Ephemeroptera.pupae +
 Zygoptera.larvae + Plecoptera.larvae
-Cladocera = Bosmina + Polyphemus + Holopedium + Daphnia + Chydorus
+Cladocera <- Bosmina + Polyphemus + Holopedium + Daphnia + Chydorus
 names(Stickleback)
-GutContents_lumped = import.RInSp(Stickleback, row.names = 1, info.cols = c(2:13),
+GutContents_lumped <- import.RInSp(Stickleback, row.names = 1, info.cols = c(2:13),
 subset.column = c(18,24,28,31,43:46))
 rm(list=ls(all=TRUE))
 }

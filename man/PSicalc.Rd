@@ -6,13 +6,14 @@ A measure of individual specialization proposed by Bolnick et al. (2003), based 
 }
 
 \usage{
-PSicalc(dataset, pop.diet = "sum", exclude = FALSE, replicates=999)
+PSicalc(dataset, pop.diet = "sum", exclude = FALSE, replicates=999, precision = 1e-9)
 }
 \arguments{
   \item{dataset}{Object of class RInSp with data.}
   \item{pop.diet}{Option specifying the way to calculate the population diet. Valid values are \dQuote{sum} or \dQuote{average}.}
   \item{exclude}{A logical value to exclude or not the individual in variance estimates. Defalut is FALSE, i.e. keep all individuals.}
   \item{replicates}{Number of replicates for Monte Carlo resampling.}
+  \item{precision}{a filter to remove from the PS matrix all values which are lower than "precision". In this way some interactions are removed due to their small weight in the PS matrix.}
 }
 
 \value{
@@ -26,17 +27,18 @@ The function returns a list composed by:
  \item{IS.pvalue}{Probability value for the observed IS against the Monte Carlo resampling simulation. Consider to use more than 1000 simulations.}
  \item{montecarlo}{Monte Carlo resampling simulation values for \eqn{PS_i}}
  \item{num.individuals}{The number of individuals of the data set.}
- \item{parmeter}{The value points to the column of the \dQuote{montecarlo} matrix for plotting results.} 
+ \item{parmeter}{The value points to the column of the \dQuote{montecarlo} matrix for plotting results.}
+  \item{Precission}{The value of the selected threshold for precision.}
  }
 \details{
-Both Schoener (1968) and Feinsinger et al. (1981) advocated using Czekanowski's proportional similarity index (PS) for interspecific niche studies. Adapted to individual-level analyses, the diet overlap between an individual and the population is: 
+Both Schoener (1968) and Feinsinger et al. (1981) advocated using Czekanowski's proportional similarity index (PS) for interspecific niche studies. Adapted to individual-level analyses, the diet overlap between an individual and the population is:
 
 \deqn{ PS_i = 1 - 0.5 \sum_j{|p_{ij} - q_j|} }
 
 where \eqn{p_{ij}} is the frequency of category j in the individual i's diet, and \eqn{q_j}  is the frequency of category j in the population as a whole.
 The prevalence of individual specialization (IS) in the population is then measured by the average of individuals' PS values:
 
-\deqn{IS = \frac{\sum_i(PS_i)}{N}} 
+\deqn{IS = \frac{\sum_i(PS_i)}{N}}
 
 Monte Carlo resampling for hypothesis testing is implemented for the case when all individuals are kept.
 
@@ -55,11 +57,11 @@ Schoener, T.W. 1968. The \emph{Anolis} lizards of Bimini: resource partitioning 
 # PSicalc example using stickleback data from Bolnick and Paull 2009
 data(Stickleback)
 # Select a single spatial sampling site (site A)
-GutContents_SiteA = import.RInSp(Stickleback, row.names = 1,
+GutContents_SiteA <- import.RInSp(Stickleback, row.names = 1,
 info.cols = c(2:13), subset.rows = c("Site", "A"))
 # Warning, the number of replicates is set low to speed up he example!
 # Note, for real analyses we recommend to set replicates => 999
-PSi = PSicalc(GutContents_SiteA, exclude = FALSE, replicates = 99)
+PSi <- PSicalc(GutContents_SiteA, exclude = FALSE, replicates = 99)
 sumMC.RInSp(PSi)
 rm(list=ls(all=TRUE))
 }

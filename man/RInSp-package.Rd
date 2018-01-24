@@ -23,7 +23,18 @@ Version 1.1 of the package fixes three issues:
 \item in \code{\link{like.Wi}} the probability for each value of Petraitis' W is properly handled;
 \item in \code{\link{Emc}} the C code taken from Dieta1.c has been fixed for an error in the calculation of the weight matrix when highly specilised individuals are present.}
 
-The Authors thank for the first two issues Miss Georgia Karoline Kosmala (\email{geh_karol@hotmail.com}) and  Miss Ambika Kamath (\email{geh_karol@hotmail.com}), and for starting the discussion leading to the identification of the bug in Dieta1.c Dr. Marcio S. Araujo (\email{msaraujo@rc.unesp.br}).
+Version 1.2.3 of the package has been changed to address the following things:
+\enumerate{
+\item we introduce a filter to remove from the PS matrix all values which are lower than a set threshold (i.e., the parameter "\emph{precision}"). In this way some interactions are removed due to their negligible weight in the PS matrix. The affected functions are: \code{\link{Eindex}}, \code{\link{Emc}}, \code{\link{PSicalc}} and the C code used for the resampling;
+\item in \code{\link{Eindex}} users are now warned for cases of isolated individuals by means of a text message and by the value of the variable \emph{Isolation};
+\item all progressbars are removed from all functions, so in case your problem is big have a little bit of patience;
+\item now \code{\link{Eindex}} and \code{\link{Emc}} will work corectly with the Barrat index in case of isolated individuals;
+\item Undefined global functions or variables are now properly registered in the NAMESPACE file;
+\item native routines have been registered and symbol search has een disabled;
+\item unprotected variables have been taken care of.
+}
+
+The Authors thank for their help in imprving the package Miss Georgia Karoline Kosmala (\email{geh_karol@hotmail.com}), Miss Ambika Kamath (\email{geh_karol@hotmail.com}), Miss Isabel Fisk Baruque (\email{isabel.fiskbaruque@gmail.com}) and Dr. Marcio S. Araujo (\email{msaraujo@rc.unesp.br}).
 
 }
 
@@ -31,8 +42,8 @@ The Authors thank for the first two issues Miss Georgia Karoline Kosmala (\email
 \tabular{ll}{
 Package: \tab RInSp\cr
 Type: \tab Package\cr
-Version: \tab 1.1\cr
-Date: \tab 2015-02-10\cr
+Version: \tab 1.2.3\cr
+Date: \tab 2018-24-01\cr
 License: \tab GPL (>= 2)\cr
 }
 }
@@ -63,5 +74,7 @@ Roughgarden, J. 1974. Niche width: biogeographic patterns among \emph{Anolis liz
 Saramaki J., Kivela M., Onnela J.P., Kaski K., and Kertesz J. 2007. Generalizations of the clustering coefficient to weighted complex networks. \emph{Physics Review E} \bold{75}: 027105.
 
 Schoener, T.W. 1968. The \emph{Anolis} lizards of Bimini: resources partitioning in a complex fauna. \emph{Ecology} \bold{49}: 704-726.
+
+Zaccarelli, N., Bolnick, D.I., and Mancinelli, G. 2013. RInSp: an R package for the analysis of individual specialization in resource use. \emph{Methods in Ecology and Evolution} \bold{4}: 1018-1023.
 }
 

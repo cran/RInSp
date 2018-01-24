@@ -7,7 +7,7 @@ Monte Carlo resampling procedure for index E and Cws
 The procedure performs a Monte Carlo resampling under a null hypothesis to calculate the E measure of interindividual variation and the value of the \eqn{C_{ws}} measure of modularity following Araujo et al. (2008).
 }
 \usage{
-Emc(dataset, popd.type = "sum", index = "saramaki", replicates=999)
+Emc(dataset, popd.type = "sum", index = "saramaki", replicates=999, precision = 1e-9)
 }
 
 \arguments{
@@ -15,6 +15,7 @@ Emc(dataset, popd.type = "sum", index = "saramaki", replicates=999)
   \item{popd.type}{Option specifying the way to calculate the population diet. Valid values are \dQuote{sum} or \dQuote{average}. See \code{\link{pop.diet}} for details.}
   \item{index}{The type of clustering coefficient to use. Valid values are Saramaki's and Barrat's index: \dQuote{saramaki} or \dQuote{barrat}. See \code{\link{Eindex}} for details.}
   \item{replicates}{Number of replicates for the Monte Carlo resampling, under the null hypothesis that any observed diet variation arose from individuals sampling stochastically from a shared distribution.}
+  \item{precision}{a filter to remove from the PS matrix all values which are lower than "precision". In this way some interactions are removed due to their small weight in the PS matrix.}
 }
 
 \value{
@@ -27,6 +28,7 @@ The result is a list of class \sQuote{RInSp} composed of:
   \item{pop.diet}{Option specifying the way to calculate the population diet. Valid values are \dQuote{sum} or \dQuote{average}.}
   \item{ind.type}{The type of clustering coefficient to use. Valid values are Saramaki's and Barrat's index: \dQuote{saramaki} or \dQuote{barrat}.}
   \item{parameter}{an index used in \code{\link{sumMC.RInSp}} to point to the column of the matrix \sQuote{montecarlo} for plotting results. If zero no Monte Carlo resampling is performed.}
+  \item{Precission}{The value of the selected threshold for precision.}
 }
 
 \details{
@@ -68,21 +70,21 @@ Please note that the C code is partially based on the C source of Dieta.c by Ara
 # Example with stickleback data from Bolnick and Paull 2009
 data(Stickleback)
 # Select a single spatial sampling site (site B)
-GutContents_SiteB = import.RInSp(Stickleback, row.names = 1,
+GutContents_SiteB <- import.RInSp(Stickleback, row.names = 1,
 info.cols = c(2:13), subset.rows = c("Site", "B"))
-# Warning, the number of replicates is set low to speed up he example!
+# Warning, the number of replicates is set low to speed up the example!
 # Note, for real analyses we recommend to set replicates => 999
-ResEmc = Emc(GutContents_SiteB, popd.type = "average", replicates = 249)
+ResEmc <- Emc(GutContents_SiteB, popd.type = "average", replicates = 249)
 
 # This Eadj re-scales the observed E value to range from 0 when
 # it is equal to the null expectation, up to a maximum of 1.
 # This allows comparison of E values across samples with
 # different null Es.
 # For example, consider a case with no individual specialization
-Nulldata = Null.Hp.RInSp(GutContents_SiteB, prop="average")
+Nulldata <- Null.Hp.RInSp(GutContents_SiteB, prop="average")
 # Warning, the number of replicates is set low to speed up he example!
 # Note, for real analyses we recommend to set replicates => 999
-EmcNull = Emc(Nulldata, popd.type = "average", replicates = 249)
+EmcNull <- Emc(Nulldata, popd.type = "average", replicates = 249)
 rm(list=ls(all=TRUE))
 }
 

@@ -1,7 +1,6 @@
 \name{Null.Hp.RInSp}
 \alias{Null.Hp.RInSp}
-\title{
-Generate a data set based on a specific null hypothesis}
+\title{Generate a data set based on a specific null hypothesis}
 
 \description{
 The procedure let you build an integer/count dataset of class RInSp:

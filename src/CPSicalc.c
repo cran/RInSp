@@ -14,7 +14,7 @@
 // Version 1.3
 // Date: 2015-02-03
 
-SEXP PSicalc(SEXP comcalc, SEXP popdiet, SEXP nreplicates)
+SEXP CPSicalc(SEXP comcalc, SEXP popdiet, SEXP nreplicates)
 {
 // Declare all variables
 int   NRows, NCols, i, j, nreps, popD, k, l, Rep;
@@ -143,7 +143,7 @@ for (Rep = 0; Rep < (nreps + 1); Rep++)
     for (i=0; i< NRows; i++) { results[i] = 0; }
 
     for (i = 0; i<NRows; i++)
-      { 
+      {
         PSresults[i] = 0;
         VARps[i] = 0;
         ps = 0;
@@ -182,11 +182,15 @@ for (Rep = 0; Rep < (nreps + 1); Rep++)
     IS = IS / NRows;
 // Write results
      for (k = 0; k < NRows; k++)
-      { 
+      {
         resfin[Rep * (2*NRows + 1) + k] = PSresults[k];
         resfin[Rep * (2*NRows + 1) + NRows + k] = VARps[k]; }
     resfin[Rep * (2*NRows + 1) + 2 * NRows] = IS;
 	} // End For Rep
+
+// write .Random.seed out after use
+PutRNGstate();
+
 UNPROTECT(2);
 free(results);
 free(totaldieti);
@@ -198,9 +202,6 @@ free(PSresults);
 free(VARps);
 free(plessthanq);
 free(qlessthanp);
-
-// write .Random.seed out after use
-PutRNGstate();
 
 return Rris;
 }

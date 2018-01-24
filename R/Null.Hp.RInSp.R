@@ -13,14 +13,16 @@ Null.Hp.RInSp = function(dataset, prop = "sum"){
   #         giorgio.mancinelli@unisalento.it
   #         danbolnick@mail.texas.edu
   #
-  # Version: 1.0
-  # Date: 10/11/2012
+  # Version: 1.1
+  # Date: 26/12/2017
   #
-if (mode(dataset) == "list") 
-     { 
+  # - Bar to show progress is removed.
+  #
+if (mode(dataset) == "list")
+     {
        cat("\n For big data set this can take a long time! \n")
       # when input is a RIS object from the input.RIS procedure
-       if (class(dataset) != "RInSp") stop("The input must be an object of class RInSp.") 
+       if (class(dataset) != "RInSp") stop("The input must be an object of class RInSp.")
        if (dataset$data.type != "integer") stop("Only integer data type is accepted.")
        if (mode(prop) %in% c("numeric", "character") == FALSE) stop("Wrong data type for diet proportions.")
        if (mode(prop) == "numeric")
@@ -29,13 +31,13 @@ if (mode(dataset) == "list")
           popdiet = abs(prop) / sum(abs(prop))
           } else
          {
-          if (prop %in% c("sum", "average") == TRUE) 
-            { 
+          if (prop %in% c("sum", "average") == TRUE)
+            {
               if (prop == "sum") {
                   popdiet = apply(dataset$resources, 2, sum) / sum(dataset$resources)} else {
                   popdiet = apply(dataset$proportion, 2, mean)}
              }
-            else 
+            else
             {
              stop("Wrong proportion option.")
             }
@@ -60,27 +62,26 @@ if (mode(dataset) == "list")
          }
     }
 
-exit = 0
-count2= 0
-count = 0 # variable for progress-bar
-progress = 0 # variable for progress-bar
-pb = txtProgressBar(min=0, max= 80, char= "+", style = 3)
+exit <- 0
+count2 <- 0
+# count = 0 # variable for progress-bar
+# progress = 0 # variable for progress-bar
+# pb = txtProgressBar(min=0, max= 80, char= "+", style = 3)
 while (exit == 0) {
-  Nulldata = data.frame()
-  for(i in 1: NInds){
-    Nulldata = rbind(Nulldata, t(rmultinom(1, rows.counts[i], popdiet)))}
-  rows = sum(apply(Nulldata, 1, sum) > 0)
-  cols = sum(apply(Nulldata, 2, sum) > 0)
-  count = count + 1
-  count2 = count2 +1
-  if (count == 5) {
-    progress = progress + 1
-    setTxtProgressBar(pb, progress)
-    count = 0}
-  if ((rows  == length(rows.counts)) & (cols == length(popdiet))) exit = 1
+  Nulldata <- data.frame()
+  for(i in 1: NInds){Nulldata <- rbind(Nulldata, t(rmultinom(1, rows.counts[i], popdiet)))}
+  rows <- sum(apply(Nulldata, 1, sum) > 0)
+  cols <- sum(apply(Nulldata, 2, sum) > 0)
+  # count = count + 1
+  count2 <- count2 +1
+  # if (count == 5) {
+  #   progress = progress + 1
+  #   setTxtProgressBar(pb, progress)
+  #   count = 0}
+  if ((rows  == length(rows.counts)) & (cols == length(popdiet))) exit <- 1
   }
-close(pb)
-Nulldata.RInSp = import.RInSp(Nulldata)
+# close(pb)
+Nulldata.RInSp <- import.RInSp(Nulldata)
 cat("\n Results reached after", count2, "iterations \n")
 return(Nulldata.RInSp)
 }

@@ -23,14 +23,14 @@ WTdMC = function(dataset, pop.diet = "sum", replicates=999, print.ris=TRUE){
 # coerce vec to be double
   if (!is.double(dataset$resources)) dataset$resources = matrix(as.double(dataset$resources), dataset$num.individuals, dataset$num.prey)
   if(!is.integer(replicates)) replicates = abs(as.integer(replicates))
-  Ris = .Call("WTdMC", dataset$resources, as.vector(diet.pop), as.vector(replicates), PACKAGE="RInSp")
+  Ris = .Call("CWTdMC", dataset$resources, as.vector(diet.pop), as.vector(replicates), PACKAGE="RInSp")
   attributes(Ris)$dimnames[[2]] = c("Zero", "WIC", "BIC", "TNW", "WonT")
   cum.distr = ecdf(Ris[, 5])
   pvalue= cum.distr(Ris[1, 5])
 # Calculate list of individuals with Shannon-Weaver value of zero
   checkZero = (dataset$proportion == 1)
   if (sum(checkZero) > 0) Zeros = dataset$ind.names[rowSums(checkZero)*c(1:length(dataset$ind.names))] else Zeros = Ris[1,1]
-# Build list object for output  
+# Build list object for output
   Ris2= list(WonT= Ris[1, 5], Zeros = Zeros, p.value= cum.distr(Ris[1, 5]), montecarlo= Ris, parameter = 5)
   class(Ris2) = "RInSp"
   if (print.ris == TRUE){

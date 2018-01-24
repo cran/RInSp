@@ -19,13 +19,13 @@ MCp.RInSp(dataset, pop.diet = "sum", replicates = 999)
 \value{
 A matrix of \dQuote{replicates + 1} datasets with the same number of individuals/resources of the input file. The first matrix is the original input data file.}
 \details{
-See Araujo et al (2011) for a discussion of the biological assumptions underlying this Monte Carlo resampling procedure. 
+See Araujo et al (2011) for a discussion of the biological assumptions underlying this Monte Carlo resampling procedure.
 
-For counts of individual prey items representing approximately independent prey-capture decisions (i.e., integer data type), it is possible to run a Monte Carlo resampling simulation to test the null hypothesis that any observed diet variation arose from individuals sampling stochastically from a shared distribution. In the simulations, each individual is assigned a number of prey items equal to the number of items it was observed eating, and then prey items are randomly assigned to the individual's diet via multinomial sampling from the observed population resource distribution. Next, both \eqn{E} and \eqn{C_{ws}} are recalculated for the resulting simulated population.
+For counts of individual prey items representing approximately independent prey-capture decisions (i.e., integer data type), it is possible to run a Monte Carlo resampling simulation to test the null hypothesis that any observed diet variation arose from individuals sampling stochastically from a shared distribution. In the simulations, each individual is assigned a number of prey items equal to the number of items it was observed eating, and then prey items are randomly assigned to the individual's diet via multinomial sampling from the observed population resource distribution.
 
 For double data type, as mass of each food category in an individual's gut, the Monte Carlo resampling procedure first determines the number of prey used by each individual, \eqn{n_i}. The program then randomly reassigns each individual \eqn{n_i} prey items drawn from the population distribution of items. This is repeated a user-specified number of times. Hence, the resampled population yields a null model corresponding to a population composed of generalists that sample randomly from the population's diet, and have diet sizes equal to those of the observed data set.
 
-The procedure can easily create a big three dimensional array. This object can create problems as it can consume an huge amount of memory. If needed use a package like \dQuote{ff} and a for loop to create an array able to hold the results.  
+The procedure can easily create a big three dimensional array. This object can create problems as it can consume an huge amount of memory. If needed use a package like \dQuote{ff} and a for loop to create an array able to hold the results.
 }
 \references{
 Araujo M.A., Layman C., and Bolnick D.I. 2011. The ecological causes of individual specialization. \emph{Ecology Letters} \bold{14}: 948-958.
@@ -57,7 +57,7 @@ Araujo M.A., Layman C., and Bolnick D.I. 2011. The ecological causes of individu
 # }
 # hist(null.d.NODF)
 # summary(null.d.NODF)
-# Observed value of NODF from data 
+# Observed value of NODF from data
 # null.d.NODF[1]
 # rm(list=ls(all=TRUE))
 }

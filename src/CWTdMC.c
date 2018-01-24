@@ -5,7 +5,6 @@
 # include <Rinternals.h>
 # include <Rdefines.h>
 # include <Rmath.h>
-// The procedure performs a Monte Carlo resampling under a null hypothesis to calculate
 // The program calculates the Total Niche Width (TNW), and breaks TNW down into its
 // Between Individual Component (BIC) and Within Individual Component (WIC). It reports
 // these three statistics and the proportion WIC/TNW, or what we call W/T. Niche widths
@@ -24,7 +23,7 @@
 // Version 1.3
 // Date: 2015-02-03
 
-SEXP WTdMC(SEXP comcalc, SEXP popdiet, SEXP nreplicates)
+SEXP CWTdMC(SEXP comcalc, SEXP popdiet, SEXP nreplicates)
 {
 // Declare all variables
 int   NRows, NCols, i, j, nreps, popD, zeroes, x, R;
@@ -119,7 +118,7 @@ for (i=0; i < NRows; i++)
 switch (popD)
   {case 0 :
     {
-     for (j = 0; j<NCols; j++) 
+     for (j = 0; j<NCols; j++)
          {bsresourcejtotal = 0;
          for (i=0; i<NRows; i++) {bsresourcejtotal = bsresourcejtotal + bsdata[i][j];}
          bspopulationdiet[j] = ( bsresourcejtotal/bspoptotal );
@@ -168,7 +167,7 @@ resfin[R + (nreps + 1) * 2] = popshannonweaver - wpc;
 resfin[R + (nreps + 1) * 3] = popshannonweaver;
 resfin[R + (nreps + 1) * 4] = wpc/popshannonweaver;
 }
-UNPROTECT(2);
+
 free(bsdata);
 free(bsproportions);
 free(bspopulationdiet);
@@ -179,6 +178,8 @@ free(populationdiet);
 
 // write .Random.seed out after use
 PutRNGstate();
+
+UNPROTECT(2);
 
 return Rris;
 }

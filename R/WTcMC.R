@@ -22,7 +22,7 @@ WTcMC = function(dataset, replicates=999, weight="equal", print.ris=TRUE){
   # coerce vec to be double
   if (!is.double(dataset$resources)) dataset$resources = matrix(as.double(dataset$resources), dataset$num.individuals, dataset$num.prey)
   if(!is.integer(replicates)) replicates = as.integer(replicates)
-  Ris = .Call("WTcMC", dataset$resources, as.vector(replicates), as.vector(weight.opt), PACKAGE="RInSp")
+  Ris = .Call("CWTcMC", dataset$resources, as.vector(replicates), as.vector(weight.opt), PACKAGE="RInSp")
   attributes(Ris)$dimnames[[2]] = c("WIC", "BIC", "TNW", "WonT")
   cum.distr = ecdf(Ris[, 4])
   pvalue= cum.distr(Ris[1, 4])
