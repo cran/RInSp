@@ -34,7 +34,14 @@ Version 1.2.3 of the package has been changed to address the following things:
 \item unprotected variables have been taken care of.
 }
 
-The Authors thank for their help in imprving the package Miss Georgia Karoline Kosmala (\email{geh_karol@hotmail.com}), Miss Ambika Kamath (\email{geh_karol@hotmail.com}), Miss Isabel Fisk Baruque (\email{isabel.fiskbaruque@gmail.com}) and Dr. Marcio S. Araujo (\email{msaraujo@rc.unesp.br}).
+Version 1.2.4 of the package has been changed to address the following things:
+\enumerate{
+\item \code{\link{import.RInSp}} has been fixed for an error affecting the subsetting;
+\item in \code{\link{import.RInSp}} we have add some flexibility in defining the separator and the decimal character in input files;
+\item all procedures have been revised to fix issues with the use of \code{class(.)}.
+}
+
+The Authors thank for their help in imprving the package Miss Georgia Karoline Kosmala (\email{geh_karol@hotmail.com}), Miss Ambika Kamath (\email{geh_karol@hotmail.com}), Miss Isabel Fisk Baruque (\email{isabel.fiskbaruque@gmail.com}), Mr Diogo B. Provete (\email{dbprovete@gmail.com>}), and Dr. Marcio S. Araujo (\email{msaraujo@rc.unesp.br}).
 
 }
 
@@ -42,15 +49,15 @@ The Authors thank for their help in imprving the package Miss Georgia Karoline K
 \tabular{ll}{
 Package: \tab RInSp\cr
 Type: \tab Package\cr
-Version: \tab 1.2.3\cr
-Date: \tab 2018-24-01\cr
+Version: \tab 1.2.4\cr
+Date: \tab 2020-02-10\cr
 License: \tab GPL (>= 2)\cr
 }
 }
 \author{
 Dr. Nicola ZACCARELLI \email{nicola.zaccarelli@gmail.com}, \cr
 Dr. Giorgio MANCINELLI \email{giorgio.mancinelli@unisalento.it}, \cr
-and Prof. Dan BOLNICK \email{danbolnick@mail.utexas.edu}}
+and Prof. Dan BOLNICK \email{daniel.bolnick@uconn.edu}}
 
 \references{
 Almeida-Neto M., Guimaraes P., Guimaraes P.R., Loyola R.D., and Ulrich W. 2008. A consistent metric for nestedness analysis in ecological systems: reconciling concept and measurement. \emph{Oikos} \bold{117}: 1227-1239.

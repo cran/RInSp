@@ -25,13 +25,13 @@ Kahilainen, K. and Lehtonen, H. 2001. Resource use of native and stocked brown t
 data(Trout)
 # Mean prey length by individual
 # First change zeros to NA
-troutTMP = Trout
+troutTMP <- Trout
 troutTMP[ troutTMP == 0] = NA
-individuals = by(troutTMP[, 3:7], troutTMP[, 2], rowMeans, na.rm=TRUE)
-TroutN = subset(Trout, Type == "N", PL1:PL5)
-TroutN = TroutN[TroutN > 0]
-TroutS = subset(Trout, Type == "S", PL1:PL5)
-TroutS = TroutN[TroutS > 0]
+individuals <- by(troutTMP[, 3:7], troutTMP[, 2], rowMeans, na.rm=TRUE)
+TroutN <- subset(Trout, Type == "N", PL1:PL5)
+TroutN <- TroutN[TroutN > 0]
+TroutS <- subset(Trout, Type == "S", PL1:PL5)
+TroutS <- TroutN[TroutS > 0]
 boxplot(c(TroutS, TroutN) ~ c(rep("N", length(TroutN)), rep("S", length(TroutS))))
 rm(list=ls(all=TRUE))
 

@@ -36,7 +36,7 @@ where \eqn{D_i} is the number of diet items recorded in the diet of individual \
 }
 
 \references{
-Petraitis, P. S. 1979. Likelihood measures of niche breadth and overlap. \emph{Ecology} \bold{60}(4): 703-710. 
+Petraitis, P. S. 1979. Likelihood measures of niche breadth and overlap. \emph{Ecology} \bold{60}(4): 703-710.
 
 Bolnick, D.I., L.H. Yang, J.A. Fordyce, J.M. Davis, and Svanback, R. 2002. Measuring individual-level resource specialization. \emph{Ecology} \bold{83}: 2936-2941.
 }
@@ -47,9 +47,9 @@ Bolnick, D.I., L.H. Yang, J.A. Fordyce, J.M. Davis, and Svanback, R. 2002. Measu
 # from Bolnick and Paull 2009
 data(Stickleback)
 # Select a single spatial sampling site (site D)
-SiteD = import.RInSp(Stickleback, row.names = 1,
+SiteD <- import.RInSp(Stickleback, row.names = 1,
 info.cols = c(2:13), subset.rows = c("Site", "D"))
-Wi = like.Wi(SiteD)
+Wi <- like.Wi(SiteD)
 rm(list=ls(all=TRUE))
 }
 \keyword{function}

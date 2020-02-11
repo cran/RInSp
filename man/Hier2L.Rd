@@ -39,8 +39,8 @@ Violle C., Enquist B.J., McGill B.J., Jiang L., Albert C.H., Hulshof C., Jung V.
 \examples{
 # Example of variance decomposition
 data(Trout)
-TroutRIS= import.RInSp(Trout, col.header=TRUE, row.names=1, info.cols=2, data.type="double")
-decomp = Hier2L(TroutRIS, factor=1)
+TroutRIS <- import.RInSp(Trout, col.header=TRUE, row.names=1, info.cols=2, data.type="double")
+decomp <- Hier2L(TroutRIS, factor=1)
 rm(list=ls(all=TRUE))
 }
 

@@ -11,14 +11,17 @@
 //
 // Author: Dr. Nicola ZACCARELLI (nicola.zaccarelli@gmail.com)
 //
-// Version 1.3
-// Date: 2015-02-03
+// Version 1.4
+// Date: 2020-02-06
+//
+// In 1.4 we add fprecision
 
-SEXP CPSicalc(SEXP comcalc, SEXP popdiet, SEXP nreplicates)
+//SEXP CPSicalc(SEXP comcalc, SEXP popdiet, SEXP nreplicates)
+SEXP CPSicalc(SEXP comcalc, SEXP popdiet, SEXP nreplicates, SEXP fprecision)
 {
 // Declare all variables
 int   NRows, NCols, i, j, nreps, popD, k, l, Rep;
-double IS, bspoptotal;
+double IS, bspoptotal, pfprecision;
 double item, cumulativep, lowerbound, bsresourcejtotal;
 double ps, t1, t2, t3, t4;
 double *dati, *results, *totaldieti, *populationdiet;
@@ -44,6 +47,10 @@ nreplicates = coerceVector(nreplicates, INTSXP);
 nreps = INTEGER(nreplicates)[0];
 PROTECT(Rris = allocMatrix(REALSXP, (2 * NRows + 1), (nreps + 1)));
 resfin = REAL(Rris);
+
+// precision for cut-off of small terms    CHANGED HERE
+fprecision = coerceVector(fprecision, REALSXP);
+pfprecision = REAL(fprecision)[0];
 
 // Let's initialize the final vector
 for (i = 0; i < ((2 * NRows + 1)*(nreps + 1)); i++) { resfin[i] = 0; }
@@ -157,7 +164,7 @@ for (Rep = 0; Rep < (nreps + 1); Rep++)
                qlessthanp[j] = bspopulationdiet[j];}
           }
         for (j = 0; j<NCols; j++) { ps = ps + plessthanq[j] + qlessthanp[j]; }
-        PSresults[i] = ps;
+        if (ps <= pfprecision) {PSresults[i] = 0 ;} else {PSresults[i] = ps ;}  // Chnaged here for presicision
 // CALCULATE VAR(PSi)
         t1 = 0;
         t2 = 0;

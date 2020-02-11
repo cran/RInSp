@@ -48,9 +48,9 @@ Levins R. 1968. \emph{Evolution in Changing Environments: Some Theoretical Explo
 \examples{
 data(Stickleback)
 # Select a single spatial sampling site (site D)
-GutContents_SiteD = import.RInSp(Stickleback, row.names = 1, info.cols = c(2:13),
+GutContents_SiteD <- import.RInSp(Stickleback, row.names = 1, info.cols = c(2:13),
 subset.rows = c("Site", "D"))
-PopDiet = pop.diet(GutContents_SiteD, prop = "average")
+PopDiet <- pop.diet(GutContents_SiteD, prop = "average")
 rm(list=ls(all=TRUE))
 }
 

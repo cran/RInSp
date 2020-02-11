@@ -27,7 +27,7 @@ The result is a list of class \sQuote{RInSp} composed of:
 }
 
 \details{
-Nestedness is a feature of binary matrices (also called presence/absence or incidence matrices). The notion of nestedness is particularly relevant for studies focusing the patterns of species occurrence among a set of locations (e.g., islands) and the patterns of interacting species within ecological networks. 
+Nestedness is a feature of binary matrices (also called presence/absence or incidence matrices). The notion of nestedness is particularly relevant for studies focusing the patterns of species occurrence among a set of locations (e.g., islands) and the patterns of interacting species within ecological networks.
 
 Almeida-Neto et al. (2008) propose a nestedness metric is based on two simple properties: decreasing fill (or DF) and paired overlap (or PO). Assuming that in a matrix with m rows and n columns, row i is located at an upper position from row j, and column k is located at a left position from column l. In addition, let MT be the marginal total (i.e. the sum of 1's) of any column or row. For any pair of rows/columns i and j, \eqn{DF_{ij}} will be equal to 100 if \eqn{MT_j} is lower than \eqn{MT_i}. Alternatively, \eqn{DF_{ij}} will be equal to 0 if \eqn{MT_j} is greater or equal to \eqn{MT_i}. For columns/rows, paired overlap (\eqn{PO_{kl}}) is simply the percentage of 1's in a given column/row l that are located at identical row/column positions to those in a column/row k. For any left-to-right column pair and, similarly, for any up-to-down row pair, there is a degree of paired nestedness (\eqn{N_{paired}}) as zero if \eqn{DF_{paired}} is zero, and PO if \eqn{DF_{paired}} is 100.
 
@@ -52,9 +52,9 @@ Almeida-Neto M., Guimaraes P., Guimaraes P.R., Loyola R.D., and Ulrich, W. 2008.
 # NODF example with stickleback data from Bolnick and Paull 2009
 data(Stickleback)
 # Select a single spatial sampling site (site D)
-SiteD = import.RInSp(Stickleback, row.names = 1, info.cols = c(2:13),
+SiteD <- import.RInSp(Stickleback, row.names = 1, info.cols = c(2:13),
 subset.rows = c("Site", "D"))
-Nesting = NODF(SiteD)
+Nesting <- NODF(SiteD)
 rm(list=ls(all=TRUE))
 }
 

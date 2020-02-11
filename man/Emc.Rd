@@ -74,7 +74,7 @@ GutContents_SiteB <- import.RInSp(Stickleback, row.names = 1,
 info.cols = c(2:13), subset.rows = c("Site", "B"))
 # Warning, the number of replicates is set low to speed up the example!
 # Note, for real analyses we recommend to set replicates => 999
-ResEmc <- Emc(GutContents_SiteB, popd.type = "average", replicates = 249)
+ResEmc <- Emc(GutContents_SiteB, popd.type = "average", replicates = 99)
 
 # This Eadj re-scales the observed E value to range from 0 when
 # it is equal to the null expectation, up to a maximum of 1.
@@ -84,7 +84,7 @@ ResEmc <- Emc(GutContents_SiteB, popd.type = "average", replicates = 249)
 Nulldata <- Null.Hp.RInSp(GutContents_SiteB, prop="average")
 # Warning, the number of replicates is set low to speed up he example!
 # Note, for real analyses we recommend to set replicates => 999
-EmcNull <- Emc(Nulldata, popd.type = "average", replicates = 249)
+EmcNull <- Emc(Nulldata, popd.type = "average", replicates = 99)
 rm(list=ls(all=TRUE))
 }
 

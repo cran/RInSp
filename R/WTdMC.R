@@ -12,27 +12,27 @@ WTdMC = function(dataset, pop.diet = "sum", replicates=999, print.ris=TRUE){
   # Version: 1.0
   # Date: 10/11/2012
   #
-  if (class(dataset) != "RInSp")
-    stop("The input must be an object of class RInSp.")
+  # if (class(dataset) != "RInSp") stop("The input must be an object of class RInSp") # Changed because of the use of class(.)
+  if (!inherits(dataset, "RInSp")) stop("The input must be an object of class RInSp")
   if(dataset$data.type != "integer") stop("Input data type must be integer.")
   if (pop.diet %in% c("sum", "average") == FALSE) stop("The specified population diet type is wrong.")
-  if (pop.diet == "sum") diet.pop = 0 else diet.pop = 1
-  replicates = as.integer(replicates)
+  if (pop.diet == "sum") diet.pop <- 0 else diet.pop <- 1
+  replicates <- as.integer(replicates)
   if (replicates <=1) stop("Wrong number of replicates.")
   if (print.ris == TRUE) cat("\n If your dataset is big, this can take time. Please be patient. \n")
 # coerce vec to be double
-  if (!is.double(dataset$resources)) dataset$resources = matrix(as.double(dataset$resources), dataset$num.individuals, dataset$num.prey)
-  if(!is.integer(replicates)) replicates = abs(as.integer(replicates))
-  Ris = .Call("CWTdMC", dataset$resources, as.vector(diet.pop), as.vector(replicates), PACKAGE="RInSp")
-  attributes(Ris)$dimnames[[2]] = c("Zero", "WIC", "BIC", "TNW", "WonT")
-  cum.distr = ecdf(Ris[, 5])
-  pvalue= cum.distr(Ris[1, 5])
+  if (!is.double(dataset$resources)) dataset$resources <- matrix(as.double(dataset$resources), dataset$num.individuals, dataset$num.prey)
+  if(!is.integer(replicates)) replicates <- abs(as.integer(replicates))
+  Ris <- .Call("CWTdMC", dataset$resources, as.vector(diet.pop), as.vector(replicates), PACKAGE="RInSp")
+  attributes(Ris)$dimnames[[2]] <- c("Zero", "WIC", "BIC", "TNW", "WonT")
+  cum.distr <- ecdf(Ris[, 5])
+  pvalue <- cum.distr(Ris[1, 5])
 # Calculate list of individuals with Shannon-Weaver value of zero
-  checkZero = (dataset$proportion == 1)
-  if (sum(checkZero) > 0) Zeros = dataset$ind.names[rowSums(checkZero)*c(1:length(dataset$ind.names))] else Zeros = Ris[1,1]
+  checkZero <- (dataset$proportion == 1)
+  if (sum(checkZero) > 0) Zeros <- dataset$ind.names[rowSums(checkZero)*c(1:length(dataset$ind.names))] else Zeros <- Ris[1,1]
 # Build list object for output
-  Ris2= list(WonT= Ris[1, 5], Zeros = Zeros, p.value= cum.distr(Ris[1, 5]), montecarlo= Ris, parameter = 5)
-  class(Ris2) = "RInSp"
+  Ris2 <- list(WonT= Ris[1, 5], Zeros = Zeros, p.value= cum.distr(Ris[1, 5]), montecarlo = Ris, parameter = 5)
+  class(Ris2) <- "RInSp"
   if (print.ris == TRUE){
  cat("\n Using Roughgarden's 1979 equations, based on Shannon-Weaver diversity index: ")
  cat("\n Within-individual component          = ", Ris[1,2])

@@ -25,8 +25,8 @@ The result is a binary dataframe with rows and columns names from the input obje
 \examples{
 data(Stickleback)
 # Select a single spatial sampling site (site D)
-GutContents = import.RInSp(Stickleback, row.names = 1, info.cols = c(2:13))
-risul = RInSp2vegan(GutContents)
+GutContents <- import.RInSp(Stickleback, row.names = 1, info.cols = c(2:13))
+risul <- RInSp2vegan(GutContents)
 rm(list=ls(all=TRUE))
 }
 

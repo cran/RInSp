@@ -12,22 +12,23 @@ WTcMC = function(dataset, replicates=999, weight="equal", print.ris=TRUE){
   # Version: 1.0
   # Date: 10/11/2012
   #
-  if (class(dataset) != "RInSp") stop("The input must be an object of class RInSp")
+  # if (class(dataset) != "RInSp") stop("The input must be an object of class RInSp") # Changed because of the use of class(.)
+  if (!inherits(dataset, "RInSp")) stop("The input must be an object of class RInSp")
   if (dataset$data.type %in% c("integer", "double") != TRUE) stop("Input data type must be double or integer.")
   if (weight %in% c("equal","N_items") == FALSE) stop("`weight` must be either `equal` or `N_items`")
-  if (weight == "equal") weight.opt = 1 else weight.opt = 2
-  replicates = as.integer(replicates)
+  if (weight == "equal") weight.opt <- 1 else weight.opt <- 2
+  replicates <- as.integer(replicates)
   if (replicates <=1) stop("Wrong number of replicates.")
   if (print.ris == TRUE) cat("\n If your dataset is big, this can take time. Please be patient. \n")
   # coerce vec to be double
-  if (!is.double(dataset$resources)) dataset$resources = matrix(as.double(dataset$resources), dataset$num.individuals, dataset$num.prey)
-  if(!is.integer(replicates)) replicates = as.integer(replicates)
-  Ris = .Call("CWTcMC", dataset$resources, as.vector(replicates), as.vector(weight.opt), PACKAGE="RInSp")
-  attributes(Ris)$dimnames[[2]] = c("WIC", "BIC", "TNW", "WonT")
-  cum.distr = ecdf(Ris[, 4])
-  pvalue= cum.distr(Ris[1, 4])
-  Ris2= list(WonT= Ris[1, 4], p.value= cum.distr(Ris[1, 4]), montecarlo= Ris, weight = weight, parameter = 4)
-  class(Ris2) = "RInSp"
+  if (!is.double(dataset$resources)) dataset$resources <- matrix(as.double(dataset$resources), dataset$num.individuals, dataset$num.prey)
+  if(!is.integer(replicates)) replicates <- as.integer(replicates)
+  Ris <- .Call("CWTcMC", dataset$resources, as.vector(replicates), as.vector(weight.opt), PACKAGE="RInSp")
+  attributes(Ris)$dimnames[[2]] <- c("WIC", "BIC", "TNW", "WonT")
+  cum.distr <- ecdf(Ris[, 4])
+  pvalue <- cum.distr(Ris[1, 4])
+  Ris2 <- list(WonT= Ris[1, 4], p.value= cum.distr(Ris[1, 4]), montecarlo= Ris, weight = weight, parameter = 4)
+  class(Ris2) <- "RInSp"
   if (print.ris==TRUE){
   cat("\n Results are based on Roughgarden's 1979 equations.")
   cat("\n The weighting is '")

@@ -22,40 +22,41 @@ if (mode(dataset) == "list")
      {
        cat("\n For big data set this can take a long time! \n")
       # when input is a RIS object from the input.RIS procedure
-       if (class(dataset) != "RInSp") stop("The input must be an object of class RInSp.")
+      # if (class(dataset) != "RInSp") stop("The input must be an object of class RInSp") # Changed because of the use of class(.)
+       if (!inherits(dataset, "RInSp")) stop("The input must be an object of class RInSp")
        if (dataset$data.type != "integer") stop("Only integer data type is accepted.")
        if (mode(prop) %in% c("numeric", "character") == FALSE) stop("Wrong data type for diet proportions.")
        if (mode(prop) == "numeric")
          {
           if (length(prop) <2) stop("The diet proportion vector must be bigger then one resource.")
-          popdiet = abs(prop) / sum(abs(prop))
+          popdiet <- abs(prop) / sum(abs(prop))
           } else
          {
           if (prop %in% c("sum", "average") == TRUE)
             {
               if (prop == "sum") {
-                  popdiet = apply(dataset$resources, 2, sum) / sum(dataset$resources)} else {
-                  popdiet = apply(dataset$proportion, 2, mean)}
+                  popdiet <- apply(dataset$resources, 2, sum) / sum(dataset$resources)} else {
+                  popdiet <- apply(dataset$proportion, 2, mean)}
              }
             else
             {
              stop("Wrong proportion option.")
             }
          }
-    NInds = dataset$num.individuals
+    NInds <- dataset$num.individuals
     if (NInds <= 1) stop("The input dataset is to short.")
-    rows.counts = apply(dataset$resources, 1, sum)
+    rows.counts <- apply(dataset$resources, 1, sum)
     } else {
     cat("\n For big data set this can take a long time! \n")
     # When dataset is a vector of rows.counts, prop must be a vector type
     if (mode(dataset) != "numeric") stop("The input dataset must be a numeric vector.")
-     rows.counts = as.integer(abs(dataset))
-     NInds = length(rows.counts)
+     rows.counts <- as.integer(abs(dataset))
+     NInds <- length(rows.counts)
      if (NInds <= 1) stop("The input dataset is to short.")
      if (mode(prop) == "numeric")
         {
          if (length(prop) <2) stop("The diet proportion vector must be bigger then one resource.")
-         popdiet = abs(prop) / sum(abs(prop))
+         popdiet <- abs(prop) / sum(abs(prop))
         } else
          {
          stop("Wrong proportion option.")
@@ -83,6 +84,7 @@ while (exit == 0) {
 # close(pb)
 Nulldata.RInSp <- import.RInSp(Nulldata)
 cat("\n Results reached after", count2, "iterations \n")
+class(Nulldata.RInSp) <- "RInSp"
 return(Nulldata.RInSp)
 }
 

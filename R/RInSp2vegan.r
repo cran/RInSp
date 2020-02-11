@@ -12,15 +12,16 @@ function(dataset){
   # Version: 1.0
   # Date: 10/11/2012
   #
-# some checking 
-if (class(dataset) != "RInSp") stop("The input must be an object of class RInSp")
-if (dataset$data.type != "proportions") 
-{Ris = dataset$proportions
- Ris[Ris > 0] = 1
+ # some checking
+  # if (class(dataset) != "RInSp") stop("The input must be an object of class RInSp") # Changed because of the use of class(.)
+  if (!inherits(dataset, "RInSp")) stop("The input must be an object of class RInSp")
+if (dataset$data.type != "proportions")
+{Ris <- dataset$proportions
+ Ris[Ris > 0] <- 1
 } else {
-Ris = dataset$resources
- Ris[Ris > 0] = 1
+Ris <- dataset$resources
+ Ris[Ris > 0] <- 1
 }
-Ris = as.data.frame(Ris)
+Ris <- as.data.frame(Ris)
 return(Ris)
 }

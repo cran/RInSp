@@ -56,7 +56,7 @@ Bolnick, D.I., L.H. Yang, J.A. Fordyce, J.M. Davis, and Svanback, R. 2002. Measu
 
 Ingram,T., Stutz, W.E., Bolnick, D.I. 2011. Does intraspecific size variation in a predator affects its diet diversity and top-down control of prey? \emph{PLoS ONE} \bold{6}: e20782.
 
-Roughgarden, J. 1974. Niche width: biogeographic patterns among \emph{Anolis lizard} populations. \emph{American Naturalist} \bold{108}: 429-411. 
+Roughgarden, J. 1974. Niche width: biogeographic patterns among \emph{Anolis lizard} populations. \emph{American Naturalist} \bold{108}: 429-411.
 }
 
 \author{Dr. Nicola ZACCARELLI. Please note that the C code is partially based on the C++ source of IndSpec from Bolnick et al. (2002). For the \dQuote{weight} option Travis Ingram is acknowledged (Ingram et al. 2011).
@@ -68,10 +68,10 @@ The original source code of IndSpec1.0 is available from the \dQuote{Ecological 
 \examples{
 # Example of analysis with the trout data from Finland
 data(Trout)
-TroutRIS= import.RInSp(Trout, col.header=TRUE, row.names=1, info.cols=2, data.type="double")
+TroutRIS <- import.RInSp(Trout, col.header=TRUE, row.names=1, info.cols=2, data.type="double")
 # Warning, the number of replicates is set low to speed up he example!
 # Note, for real analyses we recommend to set replicates => 999
-TroutRIS_MC = WTcMC(TroutRIS, replicates = 99)
+TroutRIS_MC <- WTcMC(TroutRIS, replicates = 99)
 sumMC.RInSp(TroutRIS_MC)
 rm(list=ls(all=TRUE))
 }

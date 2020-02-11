@@ -41,18 +41,19 @@ similarity = overlap(GutContents_SiteD)
 # Generate a plot similar to Bolnick and Paull 2009, testing whether
 # morphological differences between individuals are positively related
 # to diet differences (or conversely are negatively related to diet similarity)
-GutContents = import.RInSp(Stickleback, row.names = 1,info.cols = c(2:13))
-similarity = overlap(GutContents)
-diet.similarity = as.dist(similarity$overlapmatrix)
-size.dissimilarity = dist(GutContents$info[,3])
+GutContents <- import.RInSp(Stickleback, row.names = 1,info.cols = c(2:13))
+similarity <- overlap(GutContents)
+diet.similarity <- as.dist(similarity$overlapmatrix)
+size.dissimilarity <- dist(GutContents$info[,3])
 plot(diet.similarity ~ size.dissimilarity, xlab = "Size dissimilarity",
 ylab = "Diet similarity", pch = 16, cex = 0.4)
-model = lm(diet.similarity ~ size.dissimilarity)
+model <- lm(diet.similarity ~ size.dissimilarity)
 abline(model, lwd = 3, col = "red")
 
 # The ade4 package is needed to complete the analysis
-library(ade4)
-mantel.rtest(diet.similarity, size.dissimilarity)
+# not run
+# library(ade4)
+# mantel.rtest(diet.similarity, size.dissimilarity)
 }
 }
 \keyword{function}
