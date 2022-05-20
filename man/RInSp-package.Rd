@@ -41,7 +41,9 @@ Version 1.2.4 of the package has been changed to address the following things:
 \item all procedures have been revised to fix issues with the use of \code{class(.)}.
 }
 
-The Authors thank for their help in imprving the package Miss Georgia Karoline Kosmala (\email{geh_karol@hotmail.com}), Miss Ambika Kamath (\email{geh_karol@hotmail.com}), Miss Isabel Fisk Baruque (\email{isabel.fiskbaruque@gmail.com}), Mr Diogo B. Provete (\email{dbprovete@gmail.com>}), and Dr. Marcio S. Araujo (\email{msaraujo@rc.unesp.br}).
+Version 1.2.5 of the package has been changed to address some warnings during the CRAN check procedure.
+
+The Authors thank for their help in imprving the package Miss Georgia Karoline Kosmala (\email{geh_karol@hotmail.com}), Miss Ambika Kamath (\email{geh_karol@hotmail.com}), Miss Isabel Fisk Baruque (\email{isabel.fiskbaruque@gmail.com}), Mr Diogo B. Provete, and Dr. Marcio S. Araujo (\email{msaraujo@rc.unesp.br}).
 
 }
 
@@ -49,8 +51,8 @@ The Authors thank for their help in imprving the package Miss Georgia Karoline K
 \tabular{ll}{
 Package: \tab RInSp\cr
 Type: \tab Package\cr
-Version: \tab 1.2.4\cr
-Date: \tab 2020-02-10\cr
+Version: \tab 1.2.5\cr
+Date: \tab 2022-05-18\cr
 License: \tab GPL (>= 2)\cr
 }
 }

@@ -1,8 +1,8 @@
 Package: RInSp
 Type: Package
-Title: R Individual Specialization (RInSp)
-Version: 1.2.4
-Date: 2020-02-10
+Title: R Individual Specialization
+Version: 1.2.5
+Date: 2022-05-18
 Authors@R: c(person("Dr. Nicola", "Zaccarelli", role = c("aut", "cre"),
                      email = "nicola.zaccarelli@gmail.com"),
               person("Giorgio", "Mancinelli", role = "aut",
@@ -20,9 +20,11 @@ Description: Functions to calculate several ecological indices of individual
     be quantified by counts of categories, measures of mass or length, or 
     proportions. Monte Carlo resampling procedures are available for hypothesis 
     testing against multinomial null models.
+    Details are provided in Zaccarelli et al. (2013) <doi:10.1111/2041-210X.12079>
+    and associated references.
 License: GPL (>= 2)
 NeedsCompilation: yes
 Repository: CRAN
 Encoding: UTF-8
-Packaged: 2020-02-10 15:21:54 UTC; zaccani
-Date/Publication: 2020-02-11 17:10:05 UTC
+Packaged: 2022-05-20 08:20:48 UTC; Nicola
+Date/Publication: 2022-05-20 08:40:02 UTC

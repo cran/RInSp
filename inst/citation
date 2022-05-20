@@ -9,7 +9,7 @@ citEntry(entry = "Article",
   volume       = "4",
   number       = "11",
   pages        = "1018--1023",
-  url          = "http://dx.doi.org/10.1111/2041-210X.12079",
+  url          = "https://dx.doi.org/10.1111/2041-210X.12079",
 
   textVersion  =
   paste("Zaccarelli, N., Mancinelli G., Bolnick, D.I. (2013).",

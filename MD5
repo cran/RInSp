@@ -1,4 +1,4 @@
-e924b92099424c03d9dad29c6688ea78 *DESCRIPTION
+f1a4196b051d97de91050b39a1d796b2 *DESCRIPTION
 85615856b1f07ff6313e744eb79e2b74 *NAMESPACE
 4852412e40dca9ad305feed7654be8c6 *R/Eindex.R
 f120fc0c3403279f2fcd29a6d0f0bc1d *R/Emc.R
@@ -17,7 +17,7 @@ dc1e08cdb94102912076a69b7f7a3c05 *R/WTcMC.R
 adc2b6ec9a455f3bf0061f28240f7f3a *R/sumMC.RInSp.R
 367e8d8aa3e67ed39128b39aad651192 *data/Stickleback.rda
 e809dcb0ae5e1e40da605ed4b8cefca4 *data/Trout.rda
-c844d2f8831854ffc50693484fa634bf *inst/citation
+7fe01f6b0988ed8a9f37622338e40ba1 *inst/citation
 46c091c43cf07237afe8f4b154ff566b *man/Eindex.Rd
 a89aeb1b5cbf0619b7628c3ff34ab41a *man/Emc.Rd
 cb5408a0aba13f4723fb5dabbb5ae976 *man/Hier2L.Rd
@@ -25,7 +25,7 @@ cb5408a0aba13f4723fb5dabbb5ae976 *man/Hier2L.Rd
 d3a30aa22fc469ecc4f725c428ee249c *man/NODF.Rd
 f627fb6ec109e9717fec13425ac91dbe *man/Null.Hp.RInSp.Rd
 19d8546c546ff6a2efcd14ea72ac8c8d *man/PSicalc.Rd
-14fb47f7a380cae021ebed9a96db0b63 *man/RInSp-package.Rd
+d8c2e8c81d0e2ef32fe3415502da08f5 *man/RInSp-package.Rd
 8cea0f799945ec9a7e3e3e9ba1c5f715 *man/RinSp2vegan.Rd
 23c840dc9e759173ca37687448121ea8 *man/Stickleback.Rd
 0aef2599fb84a2ac884129600d0298a7 *man/Trout.Rd
